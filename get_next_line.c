@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/11 11:38:34 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/11 17:23:47 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_read_line(int fd, char *buf, char *save)
 		if (rbyte == -1)
 			return (NULL);
 		if (rbyte == 0)
-			return (save);
+			return (NULL);
 		buf[rbyte] = '\0';
 		if (save == NULL)
 			save = "";
@@ -39,11 +39,15 @@ char	*ft_get_line(char *save)
 	char	*line;
 	size_t	i;
 	size_t	j;
+	size_t	save_len;
 
 	i = 0;
 	j = 0;
-	while (save[i] != '\n')
+	save_len = ft_strlen(save);
+	while (save[i] != '\n' && save[i] != '\0')
 		i++;
+	if (i == save_len)
+		return (save);
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
@@ -96,10 +100,16 @@ char	*get_next_line(int fd)
 		return (NULL);
 	save[fd] = ft_read_line(fd, buf, save[fd]);
 	if (!save[fd])
+	{
+		free(buf);
 		return (NULL);
+	}
 	line = ft_get_line(save[fd]);
 	if (!line)
+	{
+		free(buf);
 		return (NULL);
+	}
 	save[fd] = ft_get_save(save[fd]);
 	free(buf);
 	return (line);
