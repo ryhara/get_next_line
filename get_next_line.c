@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/10 20:53:13 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/11 11:38:34 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	char		*buf;
-	static char	*save[10];//OPEN_MAX
+	static char	*save[257];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)//OPEN_MAX <= fd
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 256)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
