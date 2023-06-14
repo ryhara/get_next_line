@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 15:48:58 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 15:56:12 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		save[fd] = ft_strjoin(save[fd], buf);
 		if (ft_strchr(buf, '\n'))
 			break ;
-		free(buf);
 	}
-	free(buf);
 	return (save[fd]);
 }
 
@@ -42,11 +40,15 @@ static char	*ft_get_line(int fd, char **save)
 	char	*line;
 	size_t	i;
 	size_t	j;
+	size_t	save_len;
 
 	i = 0;
 	j = 0;
+	save_len = ft_strlen(save[fd]);
 	while (save[fd][i] != '\n' && save[fd][i] != '\0')
 		i++;
+	if (save_len == i)
+		i--;
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
@@ -97,8 +99,7 @@ static void	*free_all(char **save, char *buf)
 		free(save[i]);
 		i++;
 	}
-	if (buf != NULL)
-		free(buf);
+	free(buf);
 	return (NULL);
 }
 
@@ -120,6 +121,7 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (free_all(save, buf));
 	save[fd] = ft_get_save(fd, save);
+	free(buf);
 	return (line);
 }
 

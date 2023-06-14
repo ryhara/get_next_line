@@ -42,11 +42,15 @@ static char	*ft_get_line(int fd, char **save)
 	char	*line;
 	size_t	i;
 	size_t	j;
+	size_t	save_len;
 
 	i = 0;
 	j = 0;
+	save_len = ft_strlen(save[fd]);
 	while (save[fd][i] != '\n' && save[fd][i] != '\0')
 		i++;
+	if (save_len == i)
+		i--;
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
@@ -115,7 +119,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	save[fd] = ft_read_line(fd, buf, save);
 	if (!save[fd])
-		return (free_all(save ,buf));
+		return (free_all(save, buf));
 	line = ft_get_line(fd, save);
 	if (!line)
 		return (free_all(save, buf));
