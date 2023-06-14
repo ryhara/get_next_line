@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 16:08:48 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 16:43:20 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ static char	*ft_get_save(int fd, char **save)
 		i++;
 	len = ft_strlen(save[fd]);
 	if (i == len)
-	{
-		free(save[fd]);
 		return (NULL);
-	}
 	i++;
 	new_save = (char *)malloc(sizeof(char) * (len - i + 2));
 	if (!new_save)
@@ -134,8 +131,8 @@ char	*get_next_line(int fd)
 // 	int	fd;
 // 	char	*line;
 
-// 	// fd = open("test2.txt", O_RDONLY);
-// 	fd = 0;
+// 	fd = open("./gnlTester/files/big_line_no_nl", O_RDONLY);
+// 	// fd = 0;
 // 	line = get_next_line(fd);
 // 	printf("[%s]\n\n",line);
 // 	while (line)
