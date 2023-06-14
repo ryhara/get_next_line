@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 15:13:27 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 15:21:18 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static char	*ft_get_save(int fd, char **save)
 	while (save[fd][i] != '\0')
 		new_save[j++] = save[fd][i++];
 	new_save[j] = '\0';
+	free(save[fd]);
 	return (new_save);
 }
 

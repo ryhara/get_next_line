@@ -81,6 +81,7 @@ static char	*ft_get_save(int fd, char **save)
 	while (save[fd][i] != '\0')
 		new_save[j++] = save[fd][i++];
 	new_save[j] = '\0';
+	free(save[fd]);
 	return (new_save);
 }
 
