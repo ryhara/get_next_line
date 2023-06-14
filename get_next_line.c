@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 14:24:42 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 15:07:04 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ static char	*ft_get_line(int fd, char **save)
 	char	*line;
 	size_t	i;
 	size_t	j;
-	size_t	save_len;
 
 	i = 0;
 	j = 0;
-	save_len = ft_strlen(save[fd]);
 	while (save[fd][i] != '\n' && save[fd][i] != '\0')
 		i++;
 	line = (char *)malloc(sizeof(char) * (i + 2));
@@ -122,29 +120,29 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q a.out");
-// }
-// ////OPEN_MAX
-// #include <stdio.h>
-// #include <fcntl.h>
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q a.out");
+}
+////OPEN_MAX
+#include <stdio.h>
+#include <fcntl.h>
 
-// int	main(void)
-// {
-// 	int	fd;
-// 	char	*line;
+int	main(void)
+{
+	int	fd;
+	char	*line;
 
-// 	// fd = open("test2.txt", O_RDONLY);
-// 	fd = 0;
-// 	line = get_next_line(fd);
-// 	printf("[%s]\n\n",line);
-// 	while (line)
-// 	{
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		printf("[%s]\n\n",line);
-// 	}
-// 	// printf("%d\n", BUFFER_SIZE);
-// 	close(fd);
-// }
+	// fd = open("test2.txt", O_RDONLY);
+	fd = 0;
+	line = get_next_line(fd);
+	printf("[%s]\n\n",line);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		printf("[%s]\n\n",line);
+	}
+	// printf("%d\n", BUFFER_SIZE);
+	close(fd);
+}

@@ -40,11 +40,9 @@ static char	*ft_get_line(int fd, char **save)
 	char	*line;
 	size_t	i;
 	size_t	j;
-	size_t	save_len;
 
 	i = 0;
 	j = 0;
-	save_len = ft_strlen(save[fd]);
 	while (save[fd][i] != '\n' && save[fd][i] != '\0')
 		i++;
 	line = (char *)malloc(sizeof(char) * (i + 2));
