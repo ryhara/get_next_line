@@ -95,6 +95,7 @@ static void	*free_all(char **save, char *buf)
 		free(save[i]);
 		i++;
 	}
+	free(buf);
 	return (NULL);
 }
 
