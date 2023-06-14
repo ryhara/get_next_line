@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 14:01:19 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 14:10:38 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static void	*free_all(char **save, char *buf)
 		free(save[i]);
 		i++;
 	}
+	free(buf);
 	return (NULL);
 }
 
@@ -134,15 +135,10 @@ char	*get_next_line(int fd)
 // 	int	fd;
 // 	char	*line;
 
-// 	line = "";
 // 	// fd = open("test2.txt", O_RDONLY);
 // 	fd = 0;
 // 	line = get_next_line(fd);
 // 	printf("[%s]\n\n",line);
-// 	// printf("[ans1:%s]\n\n",line);
-// 	// free(line);
-// 	// line = get_next_line(fd);
-// 	// printf("[ans2:%s]\n\n",line);
 // 	while (line)
 // 	{
 // 		free(line);
