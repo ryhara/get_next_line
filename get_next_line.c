@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 20:49:40 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 20:57:01 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static char	*ft_get_line(int fd, char **save)
 
 	i = 0;
 	j = 0;
+	if (save[fd][i] == '\0')
+		return (NULL);
 	while (save[fd][i] != '\n' && save[fd][i] != '\0')
 		i++;
 	if (save[fd][i] == '\0')
