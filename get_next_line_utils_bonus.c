@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -68,10 +68,12 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ans;
+	char	*tmp1;
 	size_t	len;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
+	tmp1 = (char *)s1;
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	ans = (char *)malloc(sizeof(char) * len);
 	if (!ans)
@@ -79,5 +81,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*ans = '\0';
 	ft_strlcat(ans, s1, ft_strlen(s1) + 1);
 	ft_strlcat(ans, s2, len);
+	free(tmp1);
+	tmp1 = NULL;
 	return (ans);
 }
