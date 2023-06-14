@@ -22,9 +22,6 @@
 # include <limits.h>
 
 char	*get_next_line(int fd);
-char	*ft_read_line(int fd, char *buf, char *save);
-char	*ft_get_line(char *save);
-char	*ft_get_save(char *save);
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
