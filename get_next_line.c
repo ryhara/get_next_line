@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 21:42:08 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 21:52:21 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,13 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+//OPEN_MAX check / stdint.h remove
+
 // __attribute__((destructor))
 // static void destructor() {
 //     system("leaks -q a.out");
 // }
-// ////OPEN_MAX
+
 // #include <stdio.h>
 // #include <fcntl.h>
 
