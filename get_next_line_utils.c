@@ -68,12 +68,12 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ans;
-	char	*buf;
+	char	*tmp1;
 	size_t	len;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	buf = (char *)s2;
+	tmp1 = (char *)s1;
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	ans = (char *)malloc(sizeof(char) * len);
 	if (!ans)
@@ -81,6 +81,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*ans = '\0';
 	ft_strlcat(ans, s1, ft_strlen(s1) + 1);
 	ft_strlcat(ans, s2, len);
-	free(buf);
+	free(tmp1);
+	tmp1 = NULL;
 	return (ans);
 }

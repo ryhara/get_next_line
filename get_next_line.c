@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 20:00:11 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 20:40:53 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 			return (save[fd]);
 		buf[rbyte] = '\0';
 		if (save[fd] == NULL)
-			save[fd] = "";
+		{
+			save[fd] = (char *)malloc(sizeof(char) * 1);
+			save[fd][0] = '\0';
+		}
 		save[fd] = ft_strjoin(save[fd], buf);
 		if (ft_strchr(save[fd], '\n'))
 			break ;
@@ -45,6 +48,8 @@ static char	*ft_get_line(int fd, char **save)
 	j = 0;
 	while (save[fd][i] != '\n' && save[fd][i] != '\0')
 		i++;
+	if (save[fd][i] == '\0')
+		i--;
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
@@ -53,7 +58,8 @@ static char	*ft_get_line(int fd, char **save)
 		line[j] = save[fd][j];
 		j++;
 	}
-	line[j] = '\0';
+	if (save[fd][i] != '\0')
+		line[j] = '\0';
 	return (line);
 }
 
@@ -82,20 +88,24 @@ static char	*ft_get_save(int fd, char **save)
 		new_save[j++] = save[fd][i++];
 	new_save[j] = '\0';
 	free(save[fd]);
+	save[fd] = NULL;
 	return (new_save);
 }
 
-static void	*free_all(char **save, char *buf)
+static void	*free_all(char **save)
 {
 	int	i;
 
 	i = 0;
 	while (i < 257)
 	{
-		free(save[i]);
+		if (save[i] != NULL)
+		{
+			free(save[i]);
+			save[i] = NULL;
+		}
 		i++;
 	}
-	free(buf);
 	return (NULL);
 }
 
@@ -111,11 +121,12 @@ char	*get_next_line(int fd)
 	if (!buf)
 		return (NULL);
 	save[fd] = ft_read_line(fd, buf, save);
+	free(buf);
 	if (!save[fd])
-		return (free_all(save, buf));
+		return (free_all(save));
 	line = ft_get_line(fd, save);
 	if (!line)
-		return (free_all(save, buf));
+		return (free_all(save));
 	save[fd] = ft_get_save(fd, save);
 	return (line);
 }
