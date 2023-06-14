@@ -31,7 +31,9 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		save[fd] = ft_strjoin(save[fd], buf);
 		if (ft_strchr(buf, '\n'))
 			break ;
+		free(buf);
 	}
+	free(buf);
 	return (save[fd]);
 }
 
@@ -95,7 +97,8 @@ static void	*free_all(char **save, char *buf)
 		free(save[i]);
 		i++;
 	}
-	free(buf);
+	if (buf != NULL)
+		free(buf);
 	return (NULL);
 }
 
@@ -112,12 +115,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	save[fd] = ft_read_line(fd, buf, save);
 	if (!save[fd])
-		return (free_all(save, buf));
+		return (free_all(save ,buf));
 	line = ft_get_line(fd, save);
 	if (!line)
 		return (free_all(save, buf));
 	save[fd] = ft_get_save(fd, save);
-	free(buf);
 	return (line);
 }
 

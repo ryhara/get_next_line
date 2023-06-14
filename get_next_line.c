@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 15:40:45 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 15:48:58 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		save[fd] = ft_strjoin(save[fd], buf);
 		if (ft_strchr(buf, '\n'))
 			break ;
+		free(buf);
 	}
+	free(buf);
 	return (save[fd]);
 }
 
@@ -95,7 +97,8 @@ static void	*free_all(char **save, char *buf)
 		free(save[i]);
 		i++;
 	}
-	free(buf);
+	if (buf != NULL)
+		free(buf);
 	return (NULL);
 }
 
@@ -117,7 +120,6 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (free_all(save, buf));
 	save[fd] = ft_get_save(fd, save);
-	free(buf);
 	return (line);
 }
 
