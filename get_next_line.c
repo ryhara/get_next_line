@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 20:48:27 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/14 20:49:40 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,29 +132,29 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q a.out");
-}
-////OPEN_MAX
-#include <stdio.h>
-#include <fcntl.h>
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q a.out");
+// }
+// ////OPEN_MAX
+// #include <stdio.h>
+// #include <fcntl.h>
 
-int	main(void)
-{
-	int	fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int	fd;
+// 	char	*line;
 
-	// fd = open("./gnlTester/files/big_line_no_nl", O_RDONLY);
-	fd = 0;
-	line = get_next_line(fd);
-	printf("[%s]\n\n",line);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		printf("[%s]\n\n",line);
-	}
-	// printf("%d\n", BUFFER_SIZE);
-	close(fd);
-}
+// 	// fd = open("./gnlTester/files/big_line_no_nl", O_RDONLY);
+// 	fd = 0;
+// 	line = get_next_line(fd);
+// 	printf("[%s]\n\n",line);
+// 	while (line)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 		printf("[%s]\n\n",line);
+// 	}
+// 	// printf("%d\n", BUFFER_SIZE);
+// 	close(fd);
+// }
