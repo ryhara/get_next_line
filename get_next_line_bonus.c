@@ -96,17 +96,10 @@ static char	*ft_get_save(int fd, char **save)
 	return (new_save);
 }
 
-static void	*free_all(char **save)
+static void	*free_all(char **save, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (i < 257)
-	{
-		free(save[i]);
-		save[i] = NULL;
-		i++;
-	}
+	free(save[fd]);
+	save[fd] = NULL;
 	return (NULL);
 }
 
@@ -124,10 +117,10 @@ char	*get_next_line(int fd)
 	save[fd] = ft_read_line(fd, buf, save);
 	free(buf);
 	if (!save[fd])
-		return (free_all(save));
+		return (free_all(save, fd));
 	line = ft_get_line(fd, save);
 	if (!line)
-		return (free_all(save));
+		return (free_all(save, fd));
 	save[fd] = ft_get_save(fd, save);
 	return (line);
 }

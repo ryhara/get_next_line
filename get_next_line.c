@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/15 14:24:03 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/15 14:56:38 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		save[fd] = ft_strjoin(save[fd], buf);
 		if (save[fd] == NULL)
 			return (NULL);
-		printf("test");
 		if (ft_strchr(save[fd], '\n'))
 			break ;
 	}
@@ -97,17 +96,10 @@ static char	*ft_get_save(int fd, char **save)
 	return (new_save);
 }
 
-static void	*free_all(char **save)
+static void	*free_all(char **save, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (i < 257)
-	{
-		free(save[i]);
-		save[i] = NULL;
-		i++;
-	}
+	free(save[fd]);
+	save[fd] = NULL;
 	return (NULL);
 }
 
@@ -125,37 +117,37 @@ char	*get_next_line(int fd)
 	save[fd] = ft_read_line(fd, buf, save);
 	free(buf);
 	if (!save[fd])
-		return (free_all(save));
+		return (free_all(save, fd));
 	line = ft_get_line(fd, save);
 	if (!line)
-		return (free_all(save));
+		return (free_all(save, fd));
 	save[fd] = ft_get_save(fd, save);
 	return (line);
 }
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q a.out");
-}
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q a.out");
+// }
 
-#include <stdio.h>
-#include <fcntl.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
-int	main(void)
-{
-	int	fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int	fd;
+// 	char	*line;
 
-	fd = open("test.txt", O_RDONLY);
-	// fd = 0;
-	line = get_next_line(fd);
-	printf("[%s]\n\n",line);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		printf("[%s]\n\n",line);
-	}
-	// printf("%d\n", BUFFER_SIZE);
-	close(fd);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	// fd = 0;
+// 	line = get_next_line(fd);
+// 	printf("[%s]\n\n",line);
+// 	while (line)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 		printf("[%s]\n\n",line);
+// 	}
+// 	// printf("%d\n", BUFFER_SIZE);
+// 	close(fd);
+// }
