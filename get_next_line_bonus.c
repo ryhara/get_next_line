@@ -28,6 +28,8 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		if (save[fd] == NULL)
 		{
 			save[fd] = (char *)malloc(sizeof(char) * 1);
+			if (!save[fd])
+				return (NULL);
 			save[fd][0] = '\0';
 		}
 		save[fd] = ft_strjoin(save[fd], buf);

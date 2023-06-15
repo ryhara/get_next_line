@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/15 14:56:38 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/15 17:47:04 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		if (save[fd] == NULL)
 		{
 			save[fd] = (char *)malloc(sizeof(char) * 1);
+			if (!save[fd])
+				return (NULL);
 			save[fd][0] = '\0';
 		}
 		save[fd] = ft_strjoin(save[fd], buf);
