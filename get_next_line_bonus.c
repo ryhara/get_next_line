@@ -31,6 +31,8 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 			save[fd][0] = '\0';
 		}
 		save[fd] = ft_strjoin(save[fd], buf);
+		if (save[fd] == NULL)
+			return (NULL);
 		if (ft_strchr(save[fd], '\n'))
 			break ;
 	}

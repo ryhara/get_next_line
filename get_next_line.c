@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/15 10:15:52 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:59:09 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 			save[fd][0] = '\0';
 		}
 		save[fd] = ft_strjoin(save[fd], buf);
+		if (save[fd] == NULL)
+			return (NULL);
 		if (ft_strchr(save[fd], '\n'))
 			break ;
 	}

@@ -77,7 +77,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	ans = (char *)malloc(sizeof(char) * len);
 	if (!ans)
+	{
+		free(tmp1);
+		tmp1 = NULL;
 		return (NULL);
+	}
 	*ans = '\0';
 	ft_strlcat(ans, s1, ft_strlen(s1) + 1);
 	ft_strlcat(ans, s2, len);
