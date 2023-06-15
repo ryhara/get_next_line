@@ -6,12 +6,11 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/14 21:52:21 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/15 10:15:52 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdint.h>
 
 static char	*ft_read_line(int fd, char *buf, char **save)
 {
@@ -113,9 +112,9 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	char		*buf;
-	static char	*save[257];
+	static char	*save[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > SIZE_MAX || fd > 256)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > SIZE_MAX || fd >= OPEN_MAX)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)

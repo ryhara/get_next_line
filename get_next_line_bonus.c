@@ -9,8 +9,8 @@
 /*   Updated: 2023/06/10 21:00:18 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
-#include <stdint.h>
 
 static char	*ft_read_line(int fd, char *buf, char **save)
 {
@@ -112,9 +112,9 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	char		*buf;
-	static char	*save[257];
+	static char	*save[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > SIZE_MAX || fd > 256)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > SIZE_MAX || fd >= OPEN_MAX)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
