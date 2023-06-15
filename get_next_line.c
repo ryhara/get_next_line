@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:39:38 by ryhara            #+#    #+#             */
-/*   Updated: 2023/06/15 13:59:09 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/06/15 14:24:03 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*ft_read_line(int fd, char *buf, char **save)
 		save[fd] = ft_strjoin(save[fd], buf);
 		if (save[fd] == NULL)
 			return (NULL);
+		printf("test");
 		if (ft_strchr(save[fd], '\n'))
 			break ;
 	}
@@ -132,31 +133,29 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-//OPEN_MAX check / stdint.h remove
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q a.out");
+}
 
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q a.out");
-// }
+#include <stdio.h>
+#include <fcntl.h>
 
-// #include <stdio.h>
-// #include <fcntl.h>
+int	main(void)
+{
+	int	fd;
+	char	*line;
 
-// int	main(void)
-// {
-// 	int	fd;
-// 	char	*line;
-
-// 	// fd = open("./gnlTester/files/big_line_no_nl", O_RDONLY);
-// 	fd = 0;
-// 	line = get_next_line(fd);
-// 	printf("[%s]\n\n",line);
-// 	while (line)
-// 	{
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		printf("[%s]\n\n",line);
-// 	}
-// 	// printf("%d\n", BUFFER_SIZE);
-// 	close(fd);
-// }
+	fd = open("test.txt", O_RDONLY);
+	// fd = 0;
+	line = get_next_line(fd);
+	printf("[%s]\n\n",line);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		printf("[%s]\n\n",line);
+	}
+	// printf("%d\n", BUFFER_SIZE);
+	close(fd);
+}

@@ -131,6 +131,7 @@ char	*get_next_line(int fd)
 	save[fd] = ft_get_save(fd, save);
 	return (line);
 }
+
 // #include <stdio.h>
 // #include <fcntl.h>
 // int	main(void)
